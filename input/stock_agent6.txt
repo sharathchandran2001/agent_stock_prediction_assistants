@@ -1,3 +1,18 @@
 Input: Investor sentiment analysis for US stocks (e.g., bullish or bearish trends).
 Example:
 Provide an analysis of investor sentiment for the S&P 500 index based on recent market activity.
+US investor sentiment in the stock market, as of June 23, 2025, leans bearish, with a notable increase in pessimism compared to previous weeks and the long-term average.
+Key Findings:
+AAII Investor Sentiment Survey:
+Bearish Sentiment: 41.42%, up significantly from 33.59% last week and 25.68% last year. This is higher than the long-term average of 31.16%.
+Bullish Sentiment: 33.21%, down from 36.67% last week and 44.59% last year. This is below the historical average of 37.61%.
+Neutral Sentiment: 24.7% as of June 25, 2025.
+Bull-Bear Spread: -8.20%, a decrease from 3.10% last week and 18.92% last year. This is lower than the long-term average of 6.45%.
+S&P 500 Index: Reached fresh all-time highs as of June 27, 2025, supported by the technology sector and bullish technical momentum. However, the Relative Strength Index (RSI) is relatively high, potentially indicating short-term pullback potential.
+Market Breadth: Increased alongside the recent rise in stock prices, but remains below the levels seen in 2021.
+Interpretation:
+The data suggests a prevailing cautious or bearish sentiment among investors, with a rise in pessimism. This is indicated by the higher-than-average bearish sentiment and the negative bull-bear spread. However, this sentiment contrasts with the S&P 500 reaching new highs, suggesting that other factors, such as strong economic fundamentals and sector-specific performance (e.g., technology), may be driving the market.
+Important Considerations:
+Contrarian Indicator: The AAII Sentiment Survey is often considered a contrarian indicator, meaning extreme readings can suggest a potential market reversal. A high level of bearish sentiment could be interpreted by contrarian investors as a potential buying opportunity.
+Economic Factors: Macroeconomic data and news events can significantly influence investor sentiment. Recent strong durable goods orders and easing trade tensions could be contributing to optimistic sentiment in certain sectors.
+Sentiment as One Indicator: Investor sentiment should not be the sole basis for investment decisions. It is recommended to use it in conjunction with other data-driven techniques and fundamental analysis
