@@ -1,0 +1,3 @@
+Input: Industry-specific trends in the US stock market (e.g., EV industry, cloud computing).
+Example:
+Analyze the impact of the EV industry's growth on Tesla (TSLA) and other related stocks

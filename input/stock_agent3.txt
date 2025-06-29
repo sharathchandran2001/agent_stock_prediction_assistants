@@ -1,0 +1,3 @@
+Input: Analysis of specific companies listed in US indices (e.g., Apple, Microsoft, Tesla).
+Example:
+Analyze the stock performance of Apple (AAPL) and Microsoft (MSFT) over the past month

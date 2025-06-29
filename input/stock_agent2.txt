@@ -1,0 +1,3 @@
+Input: Sector-wise performance analysis for US stocks (e.g., technology, healthcare, finance).
+Example:
+Provide a summary of the technology and healthcare sectors' performance in the US stock market.

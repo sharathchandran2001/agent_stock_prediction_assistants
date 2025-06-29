@@ -1,0 +1,1 @@
+I can't provide personalized financial or investment advice, but I can give you some general information about blockchains. Would that help?

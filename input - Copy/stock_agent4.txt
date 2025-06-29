@@ -1,0 +1,3 @@
+Input: Global market trends that could impact US stocks (e.g., geopolitical events, global indices).
+Example:
+Assess the impact of global market trends on the US stock market, focusing on the NASDAQ index.

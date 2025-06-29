@@ -1,0 +1,65 @@
+project_root/
+├── input/
+│   ├── input_cash_flow.txt (Agent 1)
+│   ├── input_business_rationale.txt (Agent 2)
+│   ├── input_collateral.txt (Agent 3)
+│   └── input_risk_analysis.txt (Agent 4)
+├── output/
+│   ├── agent_cash_flow.txt
+│   ├── agent_business_rationale.txt
+│   ├── agent_collateral.txt
+│   ├── agent_risk_analysis.txt
+│   ├── final_credit_memo.txt
+│   └── final_credit_memo.pdf
+└── generate_credit_memo.py  (Agent Collaboration output)
+
+
+# Run in command line:
+# export OPENAI_BASE_URL=http://localhost:11434/v1
+# export OPENAI_MODEL_NAME=llama3.2
+# export OPENAI_MODEL_NAME=qwen  qwen:4b  qwen:7b qwen:14b  mistral
+# export OPENAI_API_KEY=N/A
+# streamlit run generate_credit_memo_streamlitV1.py
+
++----------------------+---------------------------+---------------------------+--------------------------+---------------------------+--------------------------+
+|    User / Streamlit  |     Cash Flow Agent       | Business Rationale Agent |     Collateral Agent     |     Risk Analysis Agent   |   Final Decision Agent   |
++----------------------+---------------------------+---------------------------+--------------------------+---------------------------+--------------------------+
+|                      |                           |                           |                          |                           |                          |
+| Enters cash flow     |                           |                           |                          |                           |                          |
+| input in UI          |                           |                           |                          |                           |                          |
+|--------------------->|                           |                           |                          |                           |                          |
+|                      | Analyze cash flow input   |                           |                          |                           |                          |
+|                      | Generate cash flow        |                           |                          |                           |                          |
+|                      | section of credit memo    |                           |                          |                           |                          |
+|                      |-------------------------->|                           |                          |                           |                          |
+|                      | Save output to .txt       |                           |                          |                           |                          |
+|                      |                           |                           |                          |                           |                          |
+|----------------------+---------------------------|                           |                          |                           |                          |
+| Enters business      |                           | Analyze rationale input   |                          |                           |                          |
+| rationale in UI      |                           | Generate business         |                          |                           |                          |
+|--------------------->|                           | rationale section         |                          |                           |                          |
+|                      |                           |-------------------------->|                          |                           |                          |
+|                      |                           | Save output to .txt       |                          |                           |                          |
+|                      |                           |                           |                          |                           |                          |
+|----------------------+---------------------------+---------------------------|                          |                           |                          |
+| Enters collateral    |                           |                           | Analyze collateral input|                           |                          |
+| input in UI          |                           |                           | Generate collateral     |                           |                          |
+|--------------------->|                           |                           | section of memo         |                           |                          |
+|                      |                           |                           |------------------------->|                           |                          |
+|                      |                           |                           | Save output to .txt     |                           |                          |
+|----------------------+---------------------------+---------------------------+--------------------------+                           |                          |
+| Enters risk input    |                           |                           |                          | Analyze risk input        |                          |
+| in UI                |                           |                           |                          | Generate risk section     |                          |
+|--------------------->|                           |                           |                          |-------------------------->|                          |
+|                      |                           |                           |                          | Save output to .txt       |                          |
+|----------------------+---------------------------+---------------------------+--------------------------+---------------------------|                          |
+|                      |                           |                           |                          |                           | Aggregate all sections   |
+|                      |                           |                           |                          |                           | Determine approve/decline|
+|                      |                           |                           |                          |                           | Generate reasoning       |
+|                      |                           |                           |                          |                           |------------------------->|
+|                      |                           |                           |                          |                           | Save recommendation.txt  |
++----------------------+---------------------------+---------------------------+--------------------------+---------------------------+--------------------------+
+| Display all outputs in UI                                                            |
+| Assemble final credit memo                                                           |
+| Save final_credit_memo.txt and .pdf                                                  |
++--------------------------------------------------------------------------------------+

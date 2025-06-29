@@ -1,0 +1,3 @@
+Input: Investor sentiment analysis for US stocks (e.g., bullish or bearish trends).
+Example:
+Provide an analysis of investor sentiment for the S&P 500 index based on recent market activity.

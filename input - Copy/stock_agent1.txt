@@ -1,0 +1,3 @@
+Input: Insights on recent trends in major US stock indices like S&P 500, NASDAQ, or Dow Jones.
+Example:
+Analyze the recent performance of the S&P 500 index over the last quarter.
