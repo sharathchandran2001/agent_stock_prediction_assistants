@@ -1,3 +1,16 @@
 Input: Insights on recent trends in major US stock indices like S&P 500, NASDAQ, or Dow Jones.
+
 Example:
-Analyze the recent performance of the S&P 500 index over the last quarter.
+Analyze the recent performance of the S&P 500 index over the last quarter listed below
+Recent Trends in Major US Stock Indices (S&P 500, NASDAQ, Dow Jones):
+The S&P 500, NASDAQ Composite, and Dow Jones Industrial Average (DJIA) have shown strong upward momentum recently, driven by various factors:
+Key Trends & Performance:
+Rally to Record Highs: The S&P 500 and NASDAQ Composite both closed at record highs recently, reflecting overall positive sentiment in the market. The Dow Jones also saw a significant weekly gain, though it remained below its all-time high.
+Strong Weekly Gains: All three major indices experienced strong gains for the week ending June 27, 2025. The NASDAQ Composite led the way with a 4.2% increase, followed by the Dow Jones at 3.8% and the S&P 500 at 3.4%.
+Summer Rally: The market has been experiencing a "summer rally" characterized by positive momentum, with the S&P 500 and NASDAQ Composite surging over 20% since April 8 lows.
+Technology Sector Leading: Technology and growth sectors, particularly those focused on Artificial Intelligence (AI), have been major drivers of the rally, delivering robust revenue and earnings growth. 
+Factors Contributing to the Rally:
+Easing Geopolitical Tensions: De-escalation of tensions in the Middle East and a new US-China trade deal have positively impacted market sentiment and contributed to falling oil prices.
+Dovish Federal Reserve: Comments from Federal Reserve officials signaling likely interest rate cuts by year-end have boosted investor confidence, even if the pace of cuts remains gradual. Lower interest rates are generally seen as positive for the stock market.
+Strong Corporate Earnings (Especially in Tech): Mega-cap technology companies have largely outperformed earnings expectations, reinforcing the positive outlook for the sector and contributing to the overall market rally.
+Favorable Technical Patterns: The NASDAQ Composite, for instance, exhibits strong development within a rising trend channel and has broken through a resistance level, suggesting potential for further upward movement.
