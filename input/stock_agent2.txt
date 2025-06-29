@@ -1,3 +1,19 @@
 Input: Sector-wise performance analysis for US stocks (e.g., technology, healthcare, finance).
 Example:
 Provide a summary of the technology and healthcare sectors' performance in the US stock market.
+Based on the latest available data, here's an analysis of the performance of the Technology, Healthcare, and Financial sectors in US stocks:
+Technology Sector:
+Recent Performance: The Information Technology sector has shown modest positive performance recently, with a +0.10% increase reported as of June 27, 2025. Sub-sectors within technology show variation, with Semiconductors & Semiconductor Equipment seeing a +0.91% increase, while Technology Hardware & Equipment and Software & Services experienced slight declines (-0.04% and -0.62% respectively).
+Year-to-Date (YTD) Performance: The YTD performance of the Technology sector has seen significant volatility in 2025. Early in the year (as of March 5, 2025), the S&P 500 Communication Services and Information Technology sector had a negative YTD return of -4.42%, underperforming the broader S&P 500. However, in May 2025, technology was the top-performing sector, rising 10.30%. This strong performance brought the sector's valuation closer to fair value after a sell-off in the first quarter. Overall, Morningstar reported the sector was up 0.73% YTD as of June 5, 2025.
+Key Drivers: Technology is being driven by secular tailwinds such as cloud computing, artificial intelligence (AI), and semiconductor demand. Generative AI, in particular, is seen as a significant growth driver, especially in customer service and software development.
+Outlook: While performance has been mixed, the sell-off in early 2025 may have created some investment opportunities. Wells Fargo projects that technology, including both Information Technology and Communication Services, will outperform through the end of 2025 due to their high-quality companies and pricing power.
+Healthcare Sector:
+Recent Performance: The Health Care sector has shown recent underperformance, with a -0.17% decrease reported as of June 27, 2025. Within the sector, Health Care Equipment & Services saw a +0.79% increase, while Pharmaceuticals, Biotechnology & Life Sciences experienced a decline of -0.91%.
+Year-to-Date Performance: Healthcare stocks have lagged behind the broader market in 2025. As of May 30, 2025, the sector had retreated 4.1%. Morningstar reported the sector was down 2.62% YTD as of June 5, 2025.
+Challenges and Opportunities: Recent underperformance has been attributed to factors including investors favoring high-growth tech stocks, policy concerns (including drug pricing), and the underperformance of some major healthcare companies like UnitedHealth Group. However, areas like weight loss drugs, data analytics, tools and diagnostics, robotics, medical devices, and insurance are seen as having potential. Despite recent headwinds, valuations have become more attractive.
+Outlook: Healthcare offers long-term growth potential due to factors like aging populations and medical innovation.
+Financial Sector:
+Recent Performance: The Financials sector has shown positive recent performance, with a +0.32% increase reported as of June 29, 2025. Insurance and Diversified Financials sub-sectors showed gains (+0.37% and +0.63% respectively), while Banks saw a decline (-0.41%).
+Year-to-Date Performance: Financial stocks had a strong 2024. As of June 12, 2025, the Morningstar US Financial-Services Index was up 7.27% YTD.
+Key Drivers: A strong economy and improving sector fundamentals contributed to the sector's performance.
+Outlook: Wells Fargo expects financials to be among the sectors to outperform through the end of 2025, particularly diversified banks and transaction/payment processing firms
