@@ -1,111 +1,114 @@
-# !pip install torch scikit-learn matplotlib --quiet
+Unit Tests Plan
 
-import torch
-import torch.nn as nn
-import matplotlib.pyplot as plt
-from sklearn.feature_extraction.text import TfidfVectorizer
-import numpy as np
+✅ success path with valid API match and valid accounts.
 
-# -------------------------------
-# Step 1: Prepare Log Sequences
-# -------------------------------
-log_sequences = [
-    ["user login successful", "USB device connected", "application started successfully"],
-    ["authentication failed", "CPU temperature warning", "memory leak detected"],
-    ["cron job completed", "system reboot initiated", "kernel panic error"],
-    ["cron job completed", "system reboot initiated", "kernel panic error"]
-]
+❌ no API match – match_api_endpoint_async returns None.
 
-# Add test log sequence from uploaded image (Apache error)
-log_sequences.append([
-    "Apache started",
-    "child process (776) exiting unexpectedly with status 3221225477",
-    "server auto-recovery triggered"
-])
+❌ upstream API failure – simulate httpx.HTTPStatusError.
 
-labels = [0, 1, 1, 1, 1]  # Last one is anomaly
+❌ empty records list
 
-# -------------------------------
-# Step 2: TF-IDF Vectorization
-# -------------------------------
-flattened = [log for seq in log_sequences for log in seq]
-vectorizer = TfidfVectorizer(max_features=8)
-vectorizer.fit(flattened)
+❌ no accounts key inside first record
 
-def encode_sequence(seq):
-    return torch.tensor(np.array([vectorizer.transform([log]).toarray()[0] for log in seq]), dtype=torch.float32)
+import pytest
+from unittest.mock import AsyncMock, patch, MagicMock
+from httpx import AsyncClient, Response, Request
+from fastapi import status
+from app.main import app  # adjust if your app is mounted differently
 
-X_seq = [encode_sequence(seq) for seq in log_sequences]
-y_seq = torch.tensor(labels, dtype=torch.float32).unsqueeze(1)
+sample_input = {
+    "step": "Given I fetch QTD accounts"
+}
 
-# Split into train/test
-X_train = torch.stack(X_seq[:-1])       # All but last
-y_train = y_seq[:-1]
-X_test = X_seq[-1].unsqueeze(0)         # Last one as test
-y_test = y_seq[-1].unsqueeze(0)
+sample_api_result = {
+    "api_endpoint": "http://mock-api/accounts"
+}
 
-# -------------------------------
-# Step 3: Classical LSTM Model
-# -------------------------------
-class ClassicalLSTM(nn.Module):
-    def __init__(self, input_dim, hidden_dim, seq_len):
-        super().__init__()
-        self.lstm = nn.LSTM(input_size=input_dim, hidden_size=hidden_dim, batch_first=True)
-        self.classifier = nn.Sequential(
-            nn.Linear(hidden_dim, 1),
-            nn.Sigmoid()
-        )
+sample_response_data = {
+    "records": [
+        {
+            "accounts": ["ACC123", "ACC456"]
+        }
+    ]
+}
 
-    def forward(self, x):
-        out, (h_n, c_n) = self.lstm(x)        # h_n: (1, batch, hidden)
-        return self.classifier(h_n.squeeze(0))  # shape: (batch, 1)
 
-# -------------------------------
-# Step 4: Train Model
-# -------------------------------
-input_dim = X_train.shape[-1]
-hidden_dim = 8
-seq_len = 3
+@pytest.mark.asyncio
+async def test_success_path():
+    with patch("app.routes.resolve_fetch_and_transform.match_api_endpoint_async", new_callable=AsyncMock) as mock_match, \
+         patch("httpx.AsyncClient.get", new_callable=AsyncMock) as mock_http:
 
-model = ClassicalLSTM(input_dim, hidden_dim, seq_len)
-loss_fn = nn.BCELoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=0.01)
+        mock_match.return_value = sample_api_result
 
-print("Training Classical LSTM...\n")
-for epoch in range(30):
-    model.train()
-    optimizer.zero_grad()
-    y_pred = model(X_train)
-    loss = loss_fn(y_pred, y_train)
-    loss.backward()
-    optimizer.step()
-    if epoch % 5 == 0:
-        acc = ((y_pred > 0.5) == y_train).float().mean()
-        print(f"Epoch {epoch:02d}: Loss={loss.item():.4f}  Accuracy={acc.item():.2f}")
+        mock_http.return_value = MagicMock()
+        mock_http.return_value.status_code = 200
+        mock_http.return_value.json.return_value = sample_response_data
+        mock_http.return_value.raise_for_status.return_value = None
 
-# -------------------------------
-# Step 5: Evaluation
-# -------------------------------
-model.eval()
-with torch.no_grad():
-    train_preds = (model(X_train) > 0.5).int().flatten()
-    test_pred = (model(X_test) > 0.5).int().item()
+        async with AsyncClient(app=app, base_url="http://test") as ac:
+            response = await ac.post("/resolve-fetch-and-transform", json=sample_input)
 
-    print("\nTrain Predictions :", train_preds.tolist())
-    print("Train Labels      :", y_train.int().flatten().tolist())
-    print("Test Prediction   :", test_pred)
-    print("Test Label        :", int(y_test.item()))
+        assert response.status_code == 200
+        assert response.json()["data"] == ["ACC123", "ACC456"]
 
-    # Visualization
-    plt.figure(figsize=(8, 3))
-    plt.plot(y_train.flatten(), 'go', label="Train Actual")
-    plt.plot(train_preds, 'rx', label="Train Predicted")
-    plt.axhline(test_pred, color='r', linestyle='--', label="Test Predicted")
-    plt.axhline(y_test.item(), color='g', linestyle='--', label="Test Actual")
-    plt.title("Classical LSTM Anomaly Detection: Train vs Test")
-    plt.xlabel("Train Sequence Index")
-    plt.ylabel("Anomaly (1) or Normal (0)")
-    plt.legend()
-    plt.grid(True)
-    plt.tight_layout()
-    plt.show()
+
+@pytest.mark.asyncio
+async def test_no_api_match():
+    with patch("app.routes.resolve_fetch_and_transform.match_api_endpoint_async", new_callable=AsyncMock) as mock_match:
+        mock_match.return_value = None
+
+        async with AsyncClient(app=app, base_url="http://test") as ac:
+            response = await ac.post("/resolve-fetch-and-transform", json=sample_input)
+
+        assert response.status_code == 404
+        assert "No matching API endpoint" in response.text
+
+
+@pytest.mark.asyncio
+async def test_upstream_http_error():
+    with patch("app.routes.resolve_fetch_and_transform.match_api_endpoint_async", new_callable=AsyncMock) as mock_match, \
+         patch("httpx.AsyncClient.get") as mock_http:
+
+        mock_match.return_value = sample_api_result
+        error_response = Response(500, request=Request("GET", sample_api_result["api_endpoint"]))
+        mock_http.side_effect = httpx.HTTPStatusError("Upstream error", request=error_response.request, response=error_response)
+
+        async with AsyncClient(app=app, base_url="http://test") as ac:
+            response = await ac.post("/resolve-fetch-and-transform", json=sample_input)
+
+        assert response.status_code == 500
+        assert "Upstream service error" in response.text
+
+
+@pytest.mark.asyncio
+async def test_empty_records():
+    with patch("app.routes.resolve_fetch_and_transform.match_api_endpoint_async", new_callable=AsyncMock) as mock_match, \
+         patch("httpx.AsyncClient.get", new_callable=AsyncMock) as mock_http:
+
+        mock_match.return_value = sample_api_result
+        mock_http.return_value.status_code = 200
+        mock_http.return_value.json.return_value = {"records": []}
+        mock_http.return_value.raise_for_status.return_value = None
+
+        async with AsyncClient(app=app, base_url="http://test") as ac:
+            response = await ac.post("/resolve-fetch-and-transform", json=sample_input)
+
+        assert response.status_code == 404
+        assert "QTD Accounts are not available" in response.text
+
+
+@pytest.mark.asyncio
+async def test_no_accounts_key():
+    with patch("app.routes.resolve_fetch_and_transform.match_api_endpoint_async", new_callable=AsyncMock) as mock_match, \
+         patch("httpx.AsyncClient.get", new_callable=AsyncMock) as mock_http:
+
+        mock_match.return_value = sample_api_result
+        mock_http.return_value.status_code = 200
+        mock_http.return_value.json.return_value = {"records": [{}]}
+        mock_http.return_value.raise_for_status.return_value = None
+
+        async with AsyncClient(app=app, base_url="http://test") as ac:
+            response = await ac.post("/resolve-fetch-and-transform", json=sample_input)
+
+        assert response.status_code == 200
+        assert response.json()["data"] == []  # safely handled as no 'accounts' key
